@@ -1,0 +1,30 @@
+1) Run python -i model.py again, and grab the employee object with the name ‘Cynthia Dueltgen.’ (Hint: later steps will be easier if you bind the result of this query to a variable name.)
+    cynthia = Employee.query.filter_by(name = "Cynthia Dueltgen").one()
+
+
+2) What department is she in? (Show the object for her department.)
+    <see creation of "cynthia" object above>
+    cynthia.dept_code
+
+
+3) What is the phone number of the department that Cynthia is in?
+    <see creation of "cynthia" object above>
+    cynthia.dept.phone
+
+
+4) Find all employees whose department we don’t know. (Hint: they will have NULL department codes.)
+    no_dept = db.session.query(Employee, Department).outerjoin(Department).all()
+
+    >>> for emp, dept in no_dept:
+    ...     if dept is None:
+    ...             print emp.name
+
+
+5) Get a list of tuples with just the name of everyone whose favorite color is orange.
+    orange = db.session.query(Employee.name).filter_by(fav_color = "orange")
+    orange.all()
+
+
+6) Find all employees who work in ‘Administration.
+    admin = Department.query.get("admin")
+    admin.emps
